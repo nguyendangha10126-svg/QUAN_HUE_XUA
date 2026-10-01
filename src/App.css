@@ -1,212 +1,215 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
   margin: 0;
-  background: #fdf6ec;
-  color: #3b2a1a;
+  background: #1a1a1a;
+  color: #d4d4d4;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
 }
 
+#root {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header */
 .header {
-  background: #8b1a1a;
-  color: #fff;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 .header h1 {
-  margin: 0;
-  font-size: 24px;
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: normal;
+  color: #fff;
 }
 
 .gio-info {
-  font-size: 16px;
+  font-size: 14px;
+  color: #a0a0a0;
 }
 
-.app-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-  display: grid;
-  gap: 24px;
-}
-
+/* Khung */
 .khung {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  margin-bottom: 24px;
 }
 
 .khung-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  background: #f4e2c8;
-  border-bottom: 1px solid #e2cba0;
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 .khung-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: normal;
+  color: #fff;
 }
 
 .khung-body {
-  padding: 16px;
+  padding: 0;
 }
 
+/* Danh sách món */
 .danh-sach-mon {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .mon-an-card {
-  position: relative;
-  border: 1px solid #e0d0b8;
-  border-radius: 8px;
-  padding: 12px;
-  background: #fff;
+  padding: 18px 16px;
+  text-align: center;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
 .mon-an-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #1f1f1f;
 }
 
-.mon-an-card.dang-chon {
-  border-color: #8b1a1a;
-  border-width: 2px;
-  background: #fff5f5;
+.mon-an-card.dang-chon h3 {
+  color: #c96b6b;
 }
 
 .mon-an-card.het-hang {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .mon-an-card h3 {
   margin: 0 0 6px;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: normal;
+  color: #fff;
 }
 
 .mon-an-card .mo-ta {
+  margin: 0 0 6px;
   font-size: 13px;
-  color: #666;
-  margin: 0 0 8px;
+  color: #a0a0a0;
 }
 
 .mon-an-card .gia {
-  font-weight: 700;
-  color: #8b1a1a;
   margin: 0 0 8px;
-}
-
-.mon-an-card button {
-  background: #8b1a1a;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.mon-an-card button:hover {
-  background: #a52020;
+  font-size: 15px;
+  color: #c96b6b;
 }
 
 .het-mon {
-  display: inline-block;
-  background: #d32f2f;
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 700;
+  color: #8a8a8a;
+  font-size: 13px;
 }
 
-.gio-hang .gio-list {
+.mon-an-card button,
+.khung-hanh-dong button,
+.form-dat-mon button[type="submit"] {
+  background: #6b6b6b;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mon-an-card button:hover,
+.khung-hanh-dong button:hover:not(:disabled),
+.form-dat-mon button[type="submit"]:hover:not(:disabled) {
+  color: #fff;
+}
+
+.khung-hanh-dong button:disabled,
+.form-dat-mon button[type="submit"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.khung-hanh-dong {
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Giỏ hàng */
+.gio-hang {
+  padding: 16px;
+  text-align: center;
+}
+
+.gio-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 12px;
 }
 
-.gio-hang .gio-dong {
-  padding: 8px 0;
-  border-bottom: 1px dashed #e0d0b8;
+.gio-dong {
+  padding: 6px 0;
+  font-size: 14px;
 }
 
-.gio-hang .gio-tong {
-  margin-top: 12px;
-  font-weight: 700;
-  font-size: 16px;
-  text-align: right;
+.gio-tong {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: #fff;
 }
 
 .gio-rong {
-  color: #999;
+  color: #888;
   font-style: italic;
   margin: 0;
 }
 
-.thong-bao {
-  margin: 0;
-  padding: 12px 16px;
-  background: #e8f5e9;
-  color: #2e7d32;
-  border-left: 4px solid #2e7d32;
-  border-radius: 4px;
-  outline: none;
-}
+/* Form */
 .form-dat-mon {
-  display: grid;
-  gap: 12px;
   max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form-field {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
 
 .form-field label {
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .form-field input,
 .form-field textarea {
-  padding: 8px 10px;
-  border: 1px solid #c9b8a0;
-  border-radius: 4px;
+  padding: 6px 8px;
+  background: #2a2a2a;
+  color: #d4d4d4;
+  border: 1px solid #444;
+  border-radius: 3px;
   font-size: 14px;
+  font-family: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 60px;
 }
 
 .form-field p[role="alert"] {
-  color: #d32f2f;
-  font-size: 13px;
   margin: 0;
+  font-size: 12px;
+  color: #e57373;
 }
 
-.form-dat-mon button[type="submit"] {
-  background: #8b1a1a;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-size: 15px;
-  cursor: pointer;
-  justify-self: start;
-}
-
-.form-dat-mon button[type="submit"]:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+/* Thông báo */
+.thong-bao {
+  margin: 0;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #81c784;
 }

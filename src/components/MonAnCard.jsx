@@ -1,35 +1,30 @@
 import dinhDangGia from "../utils/dinhDangGia";
 
 export default function MonAnCard({ mon, dangChon, onChon, onDat }) {
-  const { ten, gia, moTa, daHet } = mon;
+  function chonMon() {
+    if (mon.daHet) return;
+    onChon(mon.id);
+  }
 
-  const xuLyChon = () => {
-    if (daHet) return;
-    onChon && onChon(mon.id);
-  };
-
-  const xuLyDat = (e) => {
+  function datMon(e) {
     e.stopPropagation();
-    if (daHet) return;
-    onDat && onDat(mon);
-  };
+    if (mon.daHet) return;
+    onDat(mon);
+  }
 
   return (
     <article
-      className={`mon-an-card ${dangChon ? "dang-chon" : ""} ${
-        daHet ? "het-hang" : ""
-      }`}
-      onClick={xuLyChon}
-      data-testid={`mon-${mon.id}`}
+      className={"mon-an-card" + (dangChon ? " dang-chon" : "")}
+      onClick={chonMon}
     >
-      <h3>{ten}</h3>
-      <p className="mo-ta">{moTa}</p>
-      <p className="gia">{dinhDangGia(gia)}</p>
+      <h3>{mon.ten}</h3>
+      <p className="mo-ta">{mon.moTa}</p>
+      <p className="gia">{dinhDangGia(mon.gia)}</p>
 
-      {daHet && <span className="het-mon">Hết món</span>}
-
-      {!daHet && (
-        <button type="button" onClick={xuLyDat}>
+      {mon.daHet ? (
+        <span className="het-mon">Hết món</span>
+      ) : (
+        <button type="button" onClick={datMon}>
           Đặt món
         </button>
       )}
