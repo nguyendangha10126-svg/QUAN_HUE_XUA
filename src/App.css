@@ -165,3 +165,48 @@ body {
   border-radius: 4px;
   outline: none;
 }
+.form-dat-mon {
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+}
+
+.form-field {
+  display: grid;
+  gap: 4px;
+}
+
+.form-field label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 8px 10px;
+  border: 1px solid #c9b8a0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-field p[role="alert"] {
+  color: #d32f2f;
+  font-size: 13px;
+  margin: 0;
+}
+
+.form-dat-mon button[type="submit"] {
+  background: #8b1a1a;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.form-dat-mon button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
