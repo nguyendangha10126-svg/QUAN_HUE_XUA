@@ -1,8 +1,8 @@
-# Bài kiểm tra giữa kỳ — INT.7.18 — Mã đề 01
+# Bài kiểm tra giữa kỳ 
 
-- **Họ và tên:** Nguyễn Văn A
-- **MSSV:** 2024123456
-- **Lớp / số máy:** INT.7.18 - Máy 05
+- **Họ và tên:** Nguyễn Đăng Hà
+- **MSSV:** 2401ITB006
+- **Lớp:** CNTT K22
 
 ## Ứng dụng: Quán Huế Xưa
 
