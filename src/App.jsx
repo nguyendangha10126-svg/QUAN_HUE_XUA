@@ -1,122 +1,99 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useMemo, useRef, useState } from "react";
+import Header from "./components/Header";
+import Khung from "./components/Khung";
+import DanhSachMon from "./components/DanhSachMon";
+import GioHang from "./components/GioHang";
+import useLocalStorage from "./hooks/useLocalStorage";
+import dsMon from "./data/dsMon";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const tenQuan = import.meta.env.VITE_TEN_QUAN;
+
+  const [gio, setGio] = useLocalStorage("gio-hang", []);
+  const [monDangChon, setMonDangChon] = useState(null);
+  const [thongBao, setThongBao] = useState("");
+  const thongBaoRef = useRef(null);
+
+  const tongPhan = useMemo(
+    () => gio.reduce((tong, dong) => tong + dong.soLuong, 0),
+    [gio]
+  );
+
+  useEffect(() => {
+    document.title = tongPhan > 0 ? `(${tongPhan}) ${tenQuan}` : tenQuan;
+  }, [tongPhan, tenQuan]);
+
+  useEffect(() => {
+    if (thongBao && thongBaoRef.current) {
+      thongBaoRef.current.focus();
+    }
+  }, [thongBao]);
+
+  const xuLyChonMon = (id) => {
+    setMonDangChon((prev) => (prev === id ? null : id));
+  };
+
+  const xuLyDatMon = (mon) => {
+    if (mon.daHet) return;
+    setGio((prev) => {
+      const daCo = prev.find((d) => d.id === mon.id);
+      if (daCo) {
+        return prev.map((d) =>
+          d.id === mon.id ? { ...d, soLuong: d.soLuong + 1 } : d
+        );
+      }
+      return [...prev, { id: mon.id, soLuong: 1 }];
+    });
+    setThongBao(`Đã thêm "${mon.ten}" vào giỏ`);
+  };
+
+  const xuLyXoaGio = () => {
+    setGio([]);
+    setMonDangChon(null);
+    setThongBao("Đã xóa giỏ hàng");
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div className="app">
+      <Header tongPhan={tongPhan} />
+
+      <main className="app-main">
+        <Khung tieuDe="Thực đơn">
+          <DanhSachMon
+            dsMon={dsMon}
+            monDangChon={monDangChon}
+            onChon={xuLyChonMon}
+            onDat={xuLyDatMon}
+          />
+        </Khung>
+
+        <Khung
+          tieuDe="Giỏ hàng"
+          hanhDong={
+            <button
+              type="button"
+              onClick={xuLyXoaGio}
+              disabled={gio.length === 0}
+            >
+              Xóa giỏ hàng
+            </button>
+          }
         >
-          Count is {count}
-        </button>
-      </section>
+          <GioHang gio={gio} dsMon={dsMon} />
+        </Khung>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {thongBao && (
+          <p
+            role="status"
+            tabIndex={-1}
+            ref={thongBaoRef}
+            className="thong-bao"
+          >
+            {thongBao}
+          </p>
+        )}
+      </main>
+    </div>
+  );
 }
-
-export default App
